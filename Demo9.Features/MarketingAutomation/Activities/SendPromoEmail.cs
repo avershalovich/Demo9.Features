@@ -9,15 +9,14 @@ using System;
 
 namespace Demo9.Features.MarketingAutomation.Activities
 {
-    public class SendPromoEmailActivity: BaseActivity
+    public class SendPromoEmailActivity: IActivity
     {
-        public SendPromoEmailActivity(ILogger<SendPromoEmailActivity> logger) 
-            : base((ILogger<IActivity>)logger)
+        public IActivityServices Services
         {
-
+            get; set;
         }
 
-        public override ActivityResult Invoke(IContactProcessingContext context)
+        public ActivityResult Invoke(IContactProcessingContext context)
         {
             //get email facet from context contact
             EmailAddressList facet = context.Contact.GetFacet<EmailAddressList>();

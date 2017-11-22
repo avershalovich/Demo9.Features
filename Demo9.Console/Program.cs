@@ -19,9 +19,7 @@ namespace Demo9.Console
         static void Main(string[] args)
         {
             string source = "email";
-            string identifier = "avh@brimit.com"; //DateTime.Now.Ticks;
-
-            //AddContactTest(source, identifier);
+            string identifier = "avh@brimit.com"; 
 
             AddInteractionTest(source, identifier);
 
@@ -47,6 +45,7 @@ namespace Demo9.Console
                         return;
                     }
 
+                    //Creating even to add to interaction for testing purposes
                     var interactionEvent = new Event(Settings.OnlineEventId, DateTime.UtcNow);
                     interactionEvent.EngagementValue = 0;
                     interactionEvent.Text = "Not available";
