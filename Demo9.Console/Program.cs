@@ -11,6 +11,16 @@ using Sitecore.Xdb.Common.Web;
 using Sitecore.XConnect.Client.WebApi;
 using System.Configuration;
 using Sitecore.XConnect.Collection.Model;
+using Sitecore.Xdb.MarketingAutomation.ReportingClient;
+using Sitecore.Xdb.MarketingAutomation.Core.Reporting;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Serilog;
+using Serilog.Sinks.SystemConsole;
+using Sitecore.Xdb.MarketingAutomation.OperationsClient;
+using Sitecore.Xdb.MarketingAutomation.Core.Requests;
+using Sitecore.Xdb.MarketingAutomation.Core.Results;
 
 namespace Demo9.Console
 {
@@ -19,9 +29,15 @@ namespace Demo9.Console
         static void Main(string[] args)
         {
             string source = "email";
-            string identifier = "avh@brimit.com"; 
+            string identifier = "avh@brimit.com";
 
-            AddInteractionTest(source, identifier);
+            //AddInteractionTest(source, identifier);
+
+            AddContactToPlan();
+            //GetPlanStatistics();
+            //GetPlanReport();
+
+            //GetContactPlans();
 
             System.Console.Read();
         }
@@ -141,6 +157,94 @@ namespace Demo9.Console
             }
         }
 
+        private static void AddContactToPlan()
+        {
+            var operationsClient = GetAutomationOperationsClient();
+
+            var contactXconnectId = Guid.Parse("{bec76a9e-f958-0000-0000-0520eb67e0f0}");
+            var planId = Guid.Parse("{4a85ddac-cc2f-47b1-a9d5-8972b3409b24}");
+            var request = new EnrollmentRequest(contactXconnectId, planId); // Contact ID, Plan ID
+
+            request.Priority = 1; // Optional
+            request.ActivityId = Guid.Parse("{c01b8533-f524-b384-5614-346f0b6a7544}"); // Optional
+            request.CustomValues.Add("test", "test"); // Optional
+
+            BatchEnrollmentRequestResult result = operationsClient.EnrollInPlanDirect(new[] { request });
+        }
+
+        private static void GetPlanStatistics()
+        {
+            var reportingClient = GetAutomationReportingClient();
+
+            var planId = Guid.Parse("{4a85ddac-cc2f-47b1-a9d5-8972b3409b24}");
+
+            var result = reportingClient.GetPlanStatistics(new[] {planId });
+            foreach (PlanStatistics stat in result)
+            {
+                Guid planID = stat.PlanDefinitionId; // The plan ID
+                long allEnrollmentsCount = stat.AllEnrollmentCount; // All enrollments in the history of this plan
+                long currentEnrollmentsCount = stat.CurrentEnrollmentCount; // Current enrollments
+            }
+        }
+
+        private static void GetPlanReport()
+        {
+            var reportingClient = GetAutomationReportingClient();
+
+            var planId = Guid.Parse("{4a85ddac-cc2f-47b1-a9d5-8972b3409b24}");
+            var reportStart = DateTime.UtcNow.AddDays(-1);
+            var reportEnd = DateTime.UtcNow;
+
+            var result = reportingClient.GetPlanReport(planId, reportStart, reportEnd);
+
+            var allContactsByActivity = result.ActivityAllContactCount; // The number of contacts that have ever been enrolled by each activity. The dictionary key is the ID of the activity and the value if the enrollment count.
+            var allCurrentContactsByActivity = result.ActivityCurrentContactCount; // The number of contacts enrolled by each activity within the start and end dates. The dictionary key is the ID of the activity and the value if the enrollment count.
+            var allContacts = result.PlanAllContactCount; // The number of contacts that have ever been enrolled in any activity of the plan. This is basically a sum of all of the counts from the ActivityAllContactCount dictionary.
+            var currentContactCount = result.PlanCurrentContactCount; // The number of contacts enrolled in any activity of the plan within the start and end dates. This is basically a sum of all of the counts from the ActivityCurrentContactCount dictionary.
+        }
+
+        private static void GetContactPlans()
+        {
+            using (XConnectClient client = GetClient())
+            {
+                var contactXconnectId = Guid.Parse("{7861dfd4-b578-0000-0000-052854642e00}");
+                IEntityReference<Contact> contactReference = new ContactReference(contactXconnectId);
+
+                try
+                {
+                    // Get contact with AutomationPlanEnrollmentCache facet
+                    Contact existingContact = client.Get<Contact>(
+                        contactReference,
+                        new ContactExpandOptions(AutomationPlanEnrollmentCache.DefaultFacetKey));
+
+                    if (existingContact == null) return; 
+
+                    AutomationPlanEnrollmentCache enrollmentCache = existingContact.GetFacet<AutomationPlanEnrollmentCache>();
+
+                    foreach (var enrollment in enrollmentCache.ActivityEnrollments)
+                    {
+                        Guid activityID = enrollment.ActivityId;
+                        System.Console.WriteLine("activityID:" + activityID.ToString());
+
+                        Guid planID = enrollment.AutomationPlanDefinitionId;
+                        System.Console.WriteLine("planID:" + planID.ToString());
+
+                        DateTime activityEntryDate = enrollment.ActivityEntryDate;
+                        System.Console.WriteLine("activityEntryDate:" + activityEntryDate.ToString());
+
+                        string contextKey = enrollment.ContextKey;
+                        System.Console.WriteLine("contextKey:" + contextKey);
+
+                        Dictionary<string, string> customData = enrollment.CustomValues;
+                    }
+                   
+                }
+                catch (Exception ex)
+                {
+                    System.Console.Write(ex.Message);
+                }
+            }
+        }
         private static XConnectClient GetClient()
         {
             string XconnectUrl = ConfigurationManager.AppSettings["xconnect.url"];
@@ -182,5 +286,65 @@ namespace Demo9.Console
 
             return client;
         }
+
+        private static AutomationReportingClient GetAutomationReportingClient()
+        {
+            string XconnectUrl = ConfigurationManager.AppSettings["xconnect.url"];
+            string XconnectThumbprint = ConfigurationManager.AppSettings["xconnect.thumbprint"];
+
+            System.Console.WriteLine("XconnectThumbprint:" + XconnectThumbprint);
+            System.Console.WriteLine("XconnectUrl:" + XconnectUrl);
+
+            CertificateWebRequestHandlerModifierOptions options =
+            CertificateWebRequestHandlerModifierOptions.Parse("StoreName=My;StoreLocation=LocalMachine;FindType=FindByThumbprint;FindValue=" + XconnectThumbprint);
+            var certificateModifier = new CertificateWebRequestHandlerModifier(options);
+
+            ILogger<AutomationReportingClient> logger =  LoggerFactory.CreateLogger<AutomationReportingClient>();
+
+            var result = new AutomationReportingClient(new Uri(XconnectUrl), null, null, logger); //new[] { certificateModifier }
+
+            return result;
+        }
+
+        private static AutomationOperationsClient GetAutomationOperationsClient()
+        {
+            string XconnectUrl = ConfigurationManager.AppSettings["xconnect.url"];
+            string XconnectThumbprint = ConfigurationManager.AppSettings["xconnect.thumbprint"];
+
+            System.Console.WriteLine("XconnectThumbprint:" + XconnectThumbprint);
+            System.Console.WriteLine("XconnectUrl:" + XconnectUrl);
+
+            CertificateWebRequestHandlerModifierOptions options =
+            CertificateWebRequestHandlerModifierOptions.Parse("StoreName=My;StoreLocation=LocalMachine;FindType=FindByThumbprint;FindValue=" + XconnectThumbprint);
+            var certificateModifier = new CertificateWebRequestHandlerModifier(options);
+
+            ILogger<AutomationOperationsClient> logger = LoggerFactory.CreateLogger<AutomationOperationsClient>();
+
+            var result = new AutomationOperationsClient(new Uri(XconnectUrl), null, null, logger); //new[] { certificateModifier }
+
+            return result;
+        }
+
+        private static ILoggerFactory _Factory = null;
+
+        public static ILoggerFactory LoggerFactory
+        {
+            get
+            {
+                if (_Factory == null)
+                {
+                    _Factory = new LoggerFactory();
+                    ConfigureLogger(_Factory);
+                }
+                return _Factory;
+            }
+            set { _Factory = value; }
+        }
+
+        public static void ConfigureLogger(ILoggerFactory factory)
+        {
+            
+        }
+
     }
 }

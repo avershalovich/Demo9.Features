@@ -46,6 +46,10 @@
       <HintPath>..\Demo9.Features\packages\Lucene.Net.3.0.3\lib\NET40\Lucene.Net.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.DotNet.InternalAbstractions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\Demo9.Features\packages\Microsoft.DotNet.InternalAbstractions.1.0.0\lib\net451\Microsoft.DotNet.InternalAbstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Extensions.CommandLineUtils, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\Demo9.Features\packages\Microsoft.Extensions.CommandLineUtils.1.0.0\lib\net451\Microsoft.Extensions.CommandLineUtils.dll</HintPath>
       <Private>True</Private>
@@ -94,6 +98,10 @@
       <HintPath>..\Demo9.Features\packages\Microsoft.Extensions.DependencyInjection.Abstractions.1.0.0\lib\netstandard1.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyModel, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\Demo9.Features\packages\Microsoft.Extensions.DependencyModel.1.0.0\lib\net451\Microsoft.Extensions.DependencyModel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Extensions.FileProviders.Abstractions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\Demo9.Features\packages\Microsoft.Extensions.FileProviders.Abstractions.1.0.0\lib\netstandard1.0\Microsoft.Extensions.FileProviders.Abstractions.dll</HintPath>
       <Private>True</Private>
@@ -106,8 +114,20 @@
       <HintPath>..\Demo9.Features\packages\Microsoft.Extensions.FileSystemGlobbing.1.0.0\lib\net451\Microsoft.Extensions.FileSystemGlobbing.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\Demo9.Features\packages\Microsoft.Extensions.Logging.1.0.0\lib\netstandard1.1\Microsoft.Extensions.Logging.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\Demo9.Features\packages\Microsoft.Extensions.Logging.Abstractions.1.0.0\lib\netstandard1.1\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\Demo9.Features\packages\Microsoft.Extensions.Options.1.0.0\lib\netstandard1.0\Microsoft.Extensions.Options.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.PlatformAbstractions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\Demo9.Features\packages\Microsoft.Extensions.PlatformAbstractions.1.0.0\lib\net451\Microsoft.Extensions.PlatformAbstractions.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.OData.Edm, Version=7.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -154,12 +174,43 @@
       <HintPath>..\Demo9.Features\packages\Remotion.Linq.2.1.1\lib\net45\Remotion.Linq.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\Demo9.Features\packages\Serilog.2.6.0\lib\net46\Serilog.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Serilog.Sinks.Console">
+      <HintPath>..\Demo9.Features\packages\Serilog.Sinks.Console.3.1.1\lib\net45\Serilog.Sinks.Console.dll</HintPath>
+    </Reference>
+    <Reference Include="Sitecore.Framework.Common, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\Demo9.Features\packages\Sitecore.Framework.Common.1.1.12\lib\net462\Sitecore.Framework.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Sitecore.Framework.Common.Abstractions, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\Demo9.Features\packages\Sitecore.Framework.Common.Abstractions.1.1.12\lib\net462\Sitecore.Framework.Common.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Sitecore.Framework.Common.Extensions, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\Demo9.Features\packages\Sitecore.Framework.Common.Extensions.1.1.12\lib\net462\Sitecore.Framework.Common.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Sitecore.Framework.Common.WildcardMatch, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\Demo9.Features\packages\Sitecore.Framework.Common.WildcardMatch.1.1.12\lib\net462\Sitecore.Framework.Common.WildcardMatch.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Sitecore.Framework.Conditions, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\Demo9.Features\packages\Sitecore.Framework.Conditions.1.1.12\lib\net462\Sitecore.Framework.Conditions.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Sitecore.Framework.Configuration, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\Demo9.Features\packages\Sitecore.Framework.Configuration.2.0.1\lib\net462\Sitecore.Framework.Configuration.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Sitecore.Framework.Configuration.Abstractions, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\Demo9.Features\packages\Sitecore.Framework.Configuration.Abstractions.2.0.1\lib\net462\Sitecore.Framework.Configuration.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Sitecore.Framework.Configuration.Common, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\Demo9.Features\packages\Sitecore.Framework.Configuration.Common.2.0.1\lib\net462\Sitecore.Framework.Configuration.Common.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Sitecore.Framework.Configuration.Extensions, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -168,6 +219,18 @@
     </Reference>
     <Reference Include="Sitecore.Framework.Rules.Abstractions, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\Demo9.Features\packages\Sitecore.Framework.Rules.Abstractions.1.1.28\lib\net462\Sitecore.Framework.Rules.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Sitecore.Framework.Rules.Model, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\Demo9.Features\packages\Sitecore.Framework.Rules.Model.1.1.28\lib\net462\Sitecore.Framework.Rules.Model.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Sitecore.Framework.Rules.Registry, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\Demo9.Features\packages\Sitecore.Framework.Rules.Registry.1.1.28\lib\net462\Sitecore.Framework.Rules.Registry.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Sitecore.Framework.Rules.Serialization, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\Demo9.Features\packages\Sitecore.Framework.Rules.Serialization.1.1.28\lib\net462\Sitecore.Framework.Rules.Serialization.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Sitecore.Kernel, Version=11.1.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -226,6 +289,10 @@
       <HintPath>..\Demo9.Features\packages\Sitecore.XConnect.Collection.Model.9.0.171002\lib\NET462\Sitecore.XConnect.Collection.Model.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Sitecore.XConnect.Diagnostics, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\Demo9.Features\packages\Sitecore.XConnect.Diagnostics.9.0.171002\lib\NET462\Sitecore.XConnect.Diagnostics.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Sitecore.XConnect.Search, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\Demo9.Features\packages\Sitecore.XConnect.Search.9.0.171002\lib\NET462\Sitecore.XConnect.Search.dll</HintPath>
       <Private>True</Private>
@@ -248,6 +315,18 @@
     </Reference>
     <Reference Include="Sitecore.Xdb.Common.Web, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\Demo9.Features\packages\Sitecore.Xdb.Common.Web.9.0.171002\lib\NET462\Sitecore.Xdb.Common.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Sitecore.Xdb.MarketingAutomation.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\Demo9.Features\packages\Sitecore.Xdb.MarketingAutomation.Core.9.0.171002\lib\NET462\Sitecore.Xdb.MarketingAutomation.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Sitecore.Xdb.MarketingAutomation.OperationsClient, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\Demo9.Features\packages\Sitecore.Xdb.MarketingAutomation.OperationsClient.9.0.171002\lib\NET462\Sitecore.Xdb.MarketingAutomation.OperationsClient.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Sitecore.Xdb.MarketingAutomation.ReportingClient, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\Demo9.Features\packages\Sitecore.Xdb.MarketingAutomation.ReportingClient.9.0.171002\lib\NET462\Sitecore.Xdb.MarketingAutomation.ReportingClient.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Sitecore.Xdb.ReferenceData.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
